@@ -1,0 +1,30 @@
+/// TLC payment type codes
+table dim_payment
+	lineageTag: 9c54b772-1599-5c0d-a068-d053ba8e3bb7
+
+	column payment_type_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 119c2691-bb12-5de7-98cd-d63b32360f89
+		summarizeBy: none
+		sourceColumn: payment_type_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type
+		dataType: string
+		lineageTag: be07d86f-4e3d-575a-9912-53b294c1568b
+		summarizeBy: none
+		sourceColumn: payment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_payment = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document ( File.Contents ( DataFolder & "\dim_payment.csv" ), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv] ),
+				    Promoted = Table.PromoteHeaders ( Source, [PromoteAllScalars = true] ),
+				    Typed = Table.TransformColumnTypes ( Promoted, {{"payment_type_id", Int64.Type}, {"payment_type", type text}} )
+				in
+				    Typed

@@ -1,0 +1,102 @@
+/// Calendar for Jun-Aug 2025
+table dim_date
+	lineageTag: ee90ab9f-7b47-51f5-b28d-6042e6cf03c5
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 702e4c6c-9f0b-5d90-b570-dd279bc1c67a
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 93180194-66cc-5260-9d48-379547461bec
+		summarizeBy: none
+		sourceColumn: full_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 21330d9f-993f-5038-aaa6-db54bdaa78f9
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 332c42fa-769a-5933-8128-b26bb44a71ef
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_label
+		dataType: string
+		lineageTag: 8c8a80c3-02a4-52e8-8b4f-e9b138e8602c
+		summarizeBy: none
+		sourceColumn: month_label
+		sortByColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 78cf1ee1-14e7-5d60-9d7e-3114f9d4fcae
+		summarizeBy: none
+		sourceColumn: day_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_weekday
+		dataType: int64
+		formatString: 0
+		lineageTag: 065e14da-770b-551a-abf0-956c23d6640d
+		summarizeBy: none
+		sourceColumn: iso_weekday
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday_name
+		dataType: string
+		lineageTag: bcb5c9d8-0f8d-5454-97b7-791be636a5c8
+		summarizeBy: none
+		sourceColumn: weekday_name
+		sortByColumn: iso_weekday
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_type
+		dataType: string
+		lineageTag: 445812f0-4b8d-5698-944f-9e91b17e3f09
+		summarizeBy: none
+		sourceColumn: day_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_us_holiday
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f05b3ab-4161-5e6a-9539-c64f577e284f
+		summarizeBy: none
+		sourceColumn: is_us_holiday
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document ( File.Contents ( DataFolder & "\dim_date.csv" ), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv] ),
+				    Promoted = Table.PromoteHeaders ( Source, [PromoteAllScalars = true] ),
+				    Typed = Table.TransformColumnTypes ( Promoted, {{"date_key", Int64.Type}, {"full_date", type date}, {"year", Int64.Type}, {"month", Int64.Type}, {"month_label", type text}, {"day_of_month", Int64.Type}, {"iso_weekday", Int64.Type}, {"weekday_name", type text}, {"day_type", type text}, {"is_us_holiday", Int64.Type}} )
+				in
+				    Typed

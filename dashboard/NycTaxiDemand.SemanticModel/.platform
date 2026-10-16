@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "NycTaxiDemand"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "eabd8c86-1afd-5f3c-a9bc-fc22462238b5"
+  }
+}

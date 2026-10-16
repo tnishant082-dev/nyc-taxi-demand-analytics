@@ -1,0 +1,155 @@
+table _Measures
+	lineageTag: 278ae270-a81c-5bd4-b6c1-9c657a25c196
+
+	/// Cleaned trips
+	measure 'Trips' = COUNTROWS ( fact_trips )
+		formatString: #,0
+		displayFolder: Volume
+		lineageTag: 893393a4-f7d6-5e4c-84a1-6590ce595ad8
+
+	/// Sum of total_amount charged to riders
+	measure 'Revenue' = SUM ( fact_trips[total_amount] )
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: eb81d069-4a04-5036-b38e-68fa67203fb0
+
+	/// Metered fare only
+	measure 'Fare Revenue' = SUM ( fact_trips[fare_amount] )
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: 0811ac07-58b5-5f2b-8da1-4eda19a31949
+
+	measure 'Avg Total per Trip' = DIVIDE ( [Revenue], [Trips] )
+		formatString: \$#,0.00
+		displayFolder: Revenue
+		lineageTag: b0db230a-69c2-5504-ae38-045cb1f87f4d
+
+	measure 'Avg Fare' = DIVIDE ( [Fare Revenue], [Trips] )
+		formatString: \$#,0.00
+		displayFolder: Revenue
+		lineageTag: 5badda00-0653-556c-ad11-4fba5ad53202
+
+	measure 'Total Miles' = SUM ( fact_trips[trip_distance] )
+		formatString: #,0
+		displayFolder: Volume
+		lineageTag: 2b0b2522-1e0d-5d8a-9c99-2fdde0169719
+
+	measure 'Avg Distance (mi)' = DIVIDE ( [Total Miles], [Trips] )
+		formatString: 0.00
+		displayFolder: Volume
+		lineageTag: e663d6d4-de36-5cf4-99a8-46b82c842686
+
+	measure 'Avg Duration (min)' = AVERAGE ( fact_trips[duration_min] )
+		formatString: 0.0
+		displayFolder: Volume
+		lineageTag: ac2064bd-4cbb-5f85-b35d-5c4bf4780305
+
+	measure 'Revenue per Mile' = DIVIDE ( [Revenue], [Total Miles] )
+		formatString: \$#,0.00
+		displayFolder: Revenue
+		lineageTag: 1010cc40-1d97-5ecf-a7c4-79f136d8e21d
+
+	measure 'Avg Speed (mph)' = DIVIDE ( [Total Miles], SUM ( fact_trips[duration_min] ) / 60 )
+		formatString: 0.0
+		displayFolder: Volume
+		lineageTag: 1cc47546-ea5c-5c89-beaa-d440d5f6987e
+
+	/// Days with at least one trip in context
+	measure 'Days' = DISTINCTCOUNT ( fact_trips[date_key] )
+		formatString: 0
+		displayFolder: Volume
+		lineageTag: 7dcacfc0-7a80-5ee9-9a0c-70cc3a286057
+
+	measure 'Trips per Day' = DIVIDE ( [Trips], [Days] )
+		formatString: #,0
+		displayFolder: Volume
+		lineageTag: f6ce924e-06eb-5cb9-81d3-2f3398b2104a
+
+	measure 'Revenue per Day' = DIVIDE ( [Revenue], [Days] )
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: 46fce8ab-ac5b-5b4b-87cb-b52c7e4e53a7
+
+	measure 'Tips' = SUM ( fact_trips[tip_amount] )
+		formatString: \$#,0
+		displayFolder: Tips
+		lineageTag: 93f69e21-f77f-5e96-b766-8864834e6894
+
+	/// Recorded tips only; cash tips are not captured
+	measure 'Tip % of Fare' = DIVIDE ( [Tips], [Fare Revenue] )
+		formatString: 0.0%
+		displayFolder: Tips
+		lineageTag: 43b1c142-d7c6-5b1c-9e9d-e49c6b3f5545
+
+	measure 'Card Tip % of Fare' = CALCULATE ( [Tip % of Fare], dim_payment[payment_type_id] = 1 )
+		formatString: 0.0%
+		displayFolder: Tips
+		lineageTag: f77b3c3c-4770-5248-a335-33d02a9466c1
+
+	measure 'Tipped Trip %' = DIVIDE ( CALCULATE ( [Trips], fact_trips[tip_amount] > 0 ), [Trips] )
+		formatString: 0.0%
+		displayFolder: Tips
+		lineageTag: ab1b1641-d220-5ef4-b474-713e106818fd
+
+	/// Pickups at JFK, LaGuardia or Newark
+	measure 'Airport Pickups' = CALCULATE ( [Trips], dim_zone[is_airport] = 1 )
+		formatString: #,0
+		displayFolder: Airports
+		lineageTag: 57872d18-babd-5c33-a3f0-f85d01248a8b
+
+	measure 'Airport Pickup %' = DIVIDE ( [Airport Pickups], [Trips] )
+		formatString: 0.0%
+		displayFolder: Airports
+		lineageTag: 70df0f6d-3c35-5018-8a16-1e517fa52ad3
+
+	measure 'Airport Revenue %' = DIVIDE ( CALCULATE ( [Revenue], dim_zone[is_airport] = 1 ), [Revenue] )
+		formatString: 0.0%
+		displayFolder: Airports
+		lineageTag: 3ee0b103-44d6-59d3-ad11-ec590d65f59b
+
+	/// Trips counted by dropoff zone
+	measure 'Dropoff Trips' = CALCULATE ( [Trips], USERELATIONSHIP ( fact_trips[do_zone_id], dim_zone[zone_id] ) )
+		formatString: #,0
+		displayFolder: Volume
+		lineageTag: 51a98bcf-8fde-5dbf-96e0-4a9dcefa6b53
+
+	measure 'Weekend Trips per Day' = CALCULATE ( [Trips per Day], dim_date[day_type] = "Weekend" )
+		formatString: #,0
+		displayFolder: Volume
+		lineageTag: b94c47c0-eeb6-51ca-b843-4d287d590b4f
+
+	measure 'Weekday Trips per Day' = CALCULATE ( [Trips per Day], dim_date[day_type] = "Weekday" )
+		formatString: #,0
+		displayFolder: Volume
+		lineageTag: dc616d24-e660-5478-b84f-768ce73a5bb2
+
+	/// Share of trips charged the Manhattan congestion relief zone fee
+	measure 'CBD Fee Trip %' = DIVIDE ( CALCULATE ( [Trips], fact_trips[cbd_congestion_fee] > 0 ), [Trips] )
+		formatString: 0.0%
+		displayFolder: Revenue
+		lineageTag: 66291db5-af1f-51e8-b20e-81938c1b305f
+
+	/// Change in trips per day vs previous month
+	measure 'Trips per Day MoM %' = ```
+			VAR cur = [Trips per Day]
+			VAR m = MAX ( dim_date[month] )
+			VAR prev = CALCULATE ( [Trips per Day], REMOVEFILTERS ( dim_date ), dim_date[month] = m - 1 )
+			RETURN IF ( NOT ISBLANK ( prev ), DIVIDE ( cur - prev, prev ) )
+			```
+		formatString: 0.0%
+		displayFolder: Volume
+		lineageTag: 02972034-738c-5181-bc54-dc2f6a7b79b5
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: a3b7272e-134d-538e-bf96-c147d9e30737
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = Row ( "Value", BLANK () )

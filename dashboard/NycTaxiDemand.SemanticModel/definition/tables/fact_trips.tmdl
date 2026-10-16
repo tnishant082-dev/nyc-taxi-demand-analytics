@@ -1,0 +1,138 @@
+/// Cleaned yellow taxi trips, one row per trip
+table fact_trips
+	lineageTag: 6e12b7d7-d060-5290-bcbd-6247316c2b1e
+
+	column trip_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d0a2c85-fdb1-579e-9d59-c6b0bfdbcddb
+		summarizeBy: none
+		sourceColumn: trip_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: e2aa75bc-f0b6-53e5-b516-9e7cbe4733c5
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d1d0bf8-ad8f-59d0-9afc-3f0e94ff56bf
+		summarizeBy: none
+		sourceColumn: hour_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column pu_zone_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 454578a7-0fc3-5df2-8b4f-abe3e4a6b044
+		summarizeBy: none
+		sourceColumn: pu_zone_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column do_zone_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c8401c51-88a8-57ef-aa43-d18476027a46
+		summarizeBy: none
+		sourceColumn: do_zone_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a2a31fb-6ea6-5773-b163-b14bd581da27
+		summarizeBy: none
+		sourceColumn: payment_type_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column trip_distance
+		dataType: double
+		lineageTag: 5a09d81c-9632-545b-b542-d50508217583
+		summarizeBy: none
+		sourceColumn: trip_distance
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_min
+		dataType: double
+		lineageTag: eda337f5-dcac-526d-a004-c525937633b8
+		summarizeBy: none
+		sourceColumn: duration_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column fare_amount
+		dataType: double
+		lineageTag: 73355140-7aab-5bd6-92e5-fce530846d68
+		summarizeBy: none
+		sourceColumn: fare_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column tip_amount
+		dataType: double
+		lineageTag: 468bc851-b29c-5319-8565-284cf3d6264d
+		summarizeBy: none
+		sourceColumn: tip_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column tolls_amount
+		dataType: double
+		lineageTag: 3e1a7b49-f779-549f-88e5-59a20ed9872f
+		summarizeBy: none
+		sourceColumn: tolls_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column airport_fee
+		dataType: double
+		lineageTag: c1646cb2-2853-5fc7-90a0-c7cc12c36513
+		summarizeBy: none
+		sourceColumn: airport_fee
+
+		annotation SummarizationSetBy = Automatic
+
+	column cbd_congestion_fee
+		dataType: double
+		lineageTag: 6dc8f9fe-e004-5596-86ba-113da3ef3979
+		summarizeBy: none
+		sourceColumn: cbd_congestion_fee
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_amount
+		dataType: double
+		lineageTag: 0e985f67-0ec0-54f7-96e7-ffcdb80b5e3f
+		summarizeBy: none
+		sourceColumn: total_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column distance_band
+		dataType: string
+		lineageTag: ba9780de-2da9-57e1-8ad8-393070b47aa8
+		summarizeBy: none
+		sourceColumn: distance_band
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_trips = m
+		mode: import
+		source =
+				let
+				    Source = try Parquet.Document ( File.Contents ( DataFolder & "\fact_trips.parquet" ) ) otherwise Parquet.Document ( File.Contents ( DataFolder & "\fact_trips_sample.parquet" ) ),
+				    Typed = Table.TransformColumnTypes ( Source, {{"trip_id", Int64.Type}, {"date_key", Int64.Type}, {"hour_key", Int64.Type}, {"pu_zone_id", Int64.Type}, {"do_zone_id", Int64.Type}, {"payment_type_id", Int64.Type}, {"trip_distance", type number}, {"duration_min", type number}, {"fare_amount", type number}, {"tip_amount", type number}, {"tolls_amount", type number}, {"airport_fee", type number}, {"cbd_congestion_fee", type number}, {"total_amount", type number}, {"distance_band", type text}} )
+				in
+				    Typed

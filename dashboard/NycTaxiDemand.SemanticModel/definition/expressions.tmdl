@@ -1,0 +1,5 @@
+/// Full path to the repo's data\powerbi folder, e.g. C:\nyc-taxi-demand-analytics\data\powerbi
+expression DataFolder = "C:\\nyc-taxi-demand-analytics\\data\\powerbi" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: dfeb7aa1-4e37-51cf-9b34-b2d26fad9514
+
+	annotation PBI_ResultType = Text

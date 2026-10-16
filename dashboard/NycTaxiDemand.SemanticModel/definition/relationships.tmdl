@@ -1,0 +1,21 @@
+relationship 36ded048-44f9-51b0-963e-b890e39b2c49
+	fromColumn: fact_trips.date_key
+	toColumn: dim_date.date_key
+
+relationship fa67da88-1da7-56cd-91ac-42fd78a555dd
+	fromColumn: fact_trips.hour_key
+	toColumn: dim_time.hour_key
+
+relationship bb4d5ca0-50f3-5f76-85d1-86bb93de58c2
+	fromColumn: fact_trips.pu_zone_id
+	toColumn: dim_zone.zone_id
+
+relationship 85cfc097-fea8-5132-9624-b3cbb0e41a01
+	isActive: false
+	fromColumn: fact_trips.do_zone_id
+	toColumn: dim_zone.zone_id
+
+relationship 84e32535-3a69-5db1-a9b5-b19138767c57
+	fromColumn: fact_trips.payment_type_id
+	toColumn: dim_payment.payment_type_id
+
