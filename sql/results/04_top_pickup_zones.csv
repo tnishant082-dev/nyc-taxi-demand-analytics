@@ -1,0 +1,16 @@
+zone_name,borough,trips,pct_trips,revenue,avg_total
+JFK Airport,Queens,473813,4.69,37150252.0,78.41
+Midtown Center,Manhattan,450607,4.46,11417773.0,25.34
+Upper East Side South,Manhattan,415170,4.11,8682411.0,20.91
+Penn Station/Madison Sq West,Manhattan,345622,3.42,8825005.0,25.53
+Upper East Side North,Manhattan,344337,3.41,7420270.0,21.55
+Midtown East,Manhattan,329636,3.26,8109965.0,24.6
+Times Sq/Theatre District,Manhattan,321449,3.18,9140999.0,28.44
+LaGuardia Airport,Queens,288707,2.86,19457002.0,67.39
+Murray Hill,Manhattan,286422,2.84,6918596.0,24.16
+Union Sq,Manhattan,269370,2.67,6247025.0,23.19
+East Chelsea,Manhattan,266904,2.64,6964848.0,26.09
+Lincoln Square East,Manhattan,266639,2.64,5981866.0,22.43
+Midtown North,Manhattan,257748,2.55,6539158.0,25.37
+East Village,Manhattan,255862,2.53,6047377.0,23.64
+Clinton East,Manhattan,248284,2.46,6054446.0,24.39

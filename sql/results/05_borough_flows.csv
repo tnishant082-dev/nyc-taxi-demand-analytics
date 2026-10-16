@@ -1,0 +1,16 @@
+pickup_borough,dropoff_borough,trips,pct_trips,avg_total
+Manhattan,Manhattan,8080687,79.99,22.06
+Queens,Manhattan,531962,5.27,79.88
+Queens,Queens,310249,3.07,36.2
+Manhattan,Queens,265724,2.63,65.11
+Manhattan,Brooklyn,227834,2.26,42.78
+Brooklyn,Brooklyn,193625,1.92,22.19
+Queens,Brooklyn,173235,1.71,64.02
+Brooklyn,Manhattan,106179,1.05,38.72
+Manhattan,Bronx,51613,0.51,43.19
+Brooklyn,Queens,45552,0.45,37.31
+Bronx,Bronx,37541,0.37,19.69
+Queens,Bronx,23201,0.23,76.3
+Bronx,Manhattan,21479,0.21,34.71
+Manhattan,EWR,17320,0.17,131.64
+Brooklyn,Bronx,5273,0.05,62.35

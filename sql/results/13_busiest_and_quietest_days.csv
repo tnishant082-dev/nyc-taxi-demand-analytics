@@ -1,0 +1,11 @@
+rank_group,full_date,weekday_name,trips
+busiest,2025-06-05,Thu,150914
+busiest,2025-06-07,Sat,144518
+busiest,2025-06-12,Thu,143302
+busiest,2025-06-21,Sat,137532
+busiest,2025-06-04,Wed,136695
+quietest,2025-08-18,Mon,73984
+quietest,2025-07-04,Fri,76592
+quietest,2025-07-05,Sat,83065
+quietest,2025-08-25,Mon,83534
+quietest,2025-08-22,Fri,83744

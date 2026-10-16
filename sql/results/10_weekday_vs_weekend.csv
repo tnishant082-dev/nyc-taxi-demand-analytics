@@ -1,0 +1,3 @@
+day_type,days,trips_per_day,revenue_per_day,avg_distance_mi,avg_total,avg_speed_mph
+Weekday,65,109815.0,3157687.0,3.43,28.75,12.2
+Weekend,27,109761.0,3110154.0,3.85,28.34,14.2

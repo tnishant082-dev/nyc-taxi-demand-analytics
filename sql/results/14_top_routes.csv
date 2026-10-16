@@ -1,0 +1,16 @@
+pickup_zone,dropoff_zone,trips,avg_distance_mi,avg_duration_min,avg_total
+Upper East Side South,Upper East Side North,54332,1.04,6.7,15.39
+Upper East Side North,Upper East Side South,44656,1.02,7.4,15.7
+Midtown Center,Upper East Side South,30284,1.06,9.4,18.18
+Upper East Side South,Midtown Center,28778,1.05,9.6,17.87
+Midtown Center,Upper East Side North,24268,1.9,13.0,22.57
+Upper East Side South,Midtown East,22648,0.98,8.4,17.01
+Upper East Side North,Midtown Center,21383,1.89,13.6,22.14
+Penn Station/Madison Sq West,Times Sq/Theatre District,20682,1.05,13.9,20.95
+JFK Airport,Times Sq/Theatre District,20505,17.74,60.6,95.66
+Lincoln Square East,Upper West Side South,20365,0.98,5.9,15.03
+Upper West Side South,Lincoln Square East,19755,0.88,5.7,14.44
+Midtown East,Upper East Side South,18787,1.03,8.4,17.39
+Upper West Side South,Upper West Side North,18781,0.84,5.0,13.78
+Midtown Center,Union Sq,18600,1.43,12.2,20.71
+Upper East Side South,Lenox Hill West,17905,0.76,6.2,14.47
