@@ -1,0 +1,11 @@
+step,rows_remaining,rows_dropped,pct_of_raw_remaining
+raw rows (3 monthly files),11796014,0,100.0
+pickup inside study window (Jun-Aug 2025),11795991,23,100.0
+valid pickup/dropoff zone (1-263),11698973,97018,99.18
+duration between 1 and 180 min,11389892,309081,96.56
+distance between 0.1 and 100 miles,11061518,328374,93.77
+fare between $3 and $500 (meter drop is $3),10330580,730938,87.58
+"non-negative tip/tolls/extras, total >= fare",10330390,190,87.58
+average speed under 70 mph,10329605,785,87.57
+passenger count missing or 1-6,10272514,57091,87.08
+rate code missing or a valid TLC code,10101536,170978,85.64

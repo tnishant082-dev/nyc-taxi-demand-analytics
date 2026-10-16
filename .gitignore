@@ -1,0 +1,17 @@
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+
+# raw TLC files and local builds (see scripts/download_data.py)
+data/raw/
+data/processed/trips_clean.parquet
+data/warehouse/
+data/powerbi/fact_trips.parquet
+
+# Power BI local-only files
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+.DS_Store
